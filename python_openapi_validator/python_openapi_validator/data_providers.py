@@ -1,5 +1,10 @@
 import json
 
+try:
+    from json.decoder import JSONDecodeError
+except ImportError:
+    JSONDecodeError = ValueError
+
 from . import exceptions
 
 
@@ -21,11 +26,11 @@ class JSONDataProvider(FileDataProvider):
         try:
             with open(self._file_path, 'r') as data_file:
                 data_dict = json.load(data_file)
-        except FileNotFoundError:
+        except IOError:
             raise exceptions.WrongArguments(
                 "file {} does not exists".format(self._file_path)
             )
-        except json.decoder.JSONDecodeError:
+        except JSONDecodeError:
             raise exceptions.WrongArguments(
                 "file {} is not JSON".format(self._file_path)
             )

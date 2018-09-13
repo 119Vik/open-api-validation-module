@@ -1,6 +1,9 @@
 import json
 import unittest
-from unittest import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 
 from .. import data_providers
 from .. import exceptions
@@ -62,7 +65,7 @@ class TestJSONDataProvider(unittest.TestCase):
 
         with self.assertRaises(exceptions.WrongArguments):
             with mock.patch(mock_path) as mocked_open:
-                mocked_open.side_effect = FileNotFoundError
+                mocked_open.side_effect = IOError
                 provider.get_data()
 
     def test_getting_data_from_non_json_file(self):

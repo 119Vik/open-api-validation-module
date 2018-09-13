@@ -1,5 +1,8 @@
 import unittest
-from unittest import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 
 from .. import validator
 from .. import exceptions
@@ -74,7 +77,7 @@ class TestValidator(unittest.TestCase):
         model_spec = mock.MagicMock()
         data_sample = mock.MagicMock()
 
-        with mock._patch_object(o_v, "_spec") as _speck_mock:
+        with mock.patch.object(o_v, "_spec") as _speck_mock:
             o_v._perform_validation(model_spec, data_sample)
 
             validate_object_mock.assert_called_once_with(
@@ -96,7 +99,7 @@ class TestValidator(unittest.TestCase):
         validate_object_mock.side_effect = Exception("Nothing is valid")
 
         with self.assertRaises(exceptions.ValidationException):
-            with mock._patch_object(o_v, "_spec") as _speck_mock:
+            with mock.patch.object(o_v, "_spec") as _speck_mock:
                 o_v._perform_validation(model_spec, data_sample)
 
                 validate_object_mock.assert_called_once_with(
@@ -122,7 +125,7 @@ class TestValidator(unittest.TestCase):
                 model_name: model_spec
             }
         }
-        with mock._patch_object(o_v, "_spec", _speck_mock):
+        with mock.patch.object(o_v, "_spec", _speck_mock):
             o_v.perform_validation_against_model(model_name,
                                                  sample_data_provider)
 
@@ -150,6 +153,6 @@ class TestValidator(unittest.TestCase):
             }
         }
         with self.assertRaises(exceptions.WrongArguments):
-            with mock._patch_object(o_v, "_spec", _speck_mock):
+            with mock.patch.object(o_v, "_spec", _speck_mock):
                 o_v.perform_validation_against_model(model_name,
                                                      sample_data_provider)
