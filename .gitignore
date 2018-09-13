@@ -1,1 +1,5 @@
 notes.txt
+*/.coverage
+*/.tox/*
+*.pyc
+*/*.egg-info/*
