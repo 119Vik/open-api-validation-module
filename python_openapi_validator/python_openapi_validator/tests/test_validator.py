@@ -52,7 +52,7 @@ class TestValidator(unittest.TestCase):
 
         data_provider.get_data.assert_called_once_with()
 
-    @mock.patch(_get_mock_path("OpenAPIValidator._spec_dict"))
+    @mock.patch(_get_mock_path("OpenAPIValidator._init_spec_dict"))
     @mock.patch(_get_mock_path("Spec"))
     @mock.patch(_get_mock_path("settings"))
     def test_init_spec(self, settings_mock, Spec_mock, _spec_dict_mock):
@@ -62,7 +62,7 @@ class TestValidator(unittest.TestCase):
             spec_data_provider=data_provider)
 
         Spec_mock.from_dict.assert_called_once_with(
-            _spec_dict_mock,
+            o_v._spec_dict,
             config=settings_mock.BRAVADO_CONFIG
         )
         self.assertEqual(o_v._spec, Spec_mock.from_dict.return_value)
@@ -125,7 +125,7 @@ class TestValidator(unittest.TestCase):
                 model_name: model_spec
             }
         }
-        with mock.patch.object(o_v, "_spec", _speck_mock):
+        with mock.patch.object(o_v, "_spec_dict", _speck_mock):
             o_v.perform_validation_against_model(model_name,
                                                  sample_data_provider)
 
@@ -153,6 +153,6 @@ class TestValidator(unittest.TestCase):
             }
         }
         with self.assertRaises(exceptions.WrongArguments):
-            with mock.patch.object(o_v, "_spec", _speck_mock):
+            with mock.patch.object(o_v, "_spec_dict", _speck_mock):
                 o_v.perform_validation_against_model(model_name,
                                                      sample_data_provider)

@@ -1,0 +1,33 @@
+# Run as:
+# $ ansible-playbook -i ansible_inventory setup_keys.yaml \
+#     --ask-pass --ask-become-pass \
+#     --extra-vars='
+#target=< target machine name >
+#target_port=< target machine name >
+#spec_file_path="< path to local spec_file >"
+#test_file_path="< public key content >"
+#model_name="< public key content >"'
+---
+- hosts: '{{ target }}'
+  remote_user: root
+  gather_facts: False
+  vars:
+    schema_file_name: "/python_openapi_validator/datamodel.schema"
+    data_sample_file_name: "/python_openapi_validator/datamodel.sample"
+
+  tasks:
+  - name: Copy spec File to remote machine
+    copy:
+      src: "{{ spec_file_path }}"
+      dest: "{{ schema_file_name }}"
+
+  - name: Copy data sample file to remote machine
+    copy:
+        src: "{{ test_file_path }}"
+        dest: "{{ data_sample_file_name }}"
+
+  - name: Run test
+    shell: "validate_sample {{ schema_file_name }} {{ data_sample_file_name }} {{model_name}}"
+    args:
+      chdir: /python_openapi_validator/
+      executable: /bin/bash

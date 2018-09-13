@@ -3,3 +3,4 @@ notes.txt
 */.tox/*
 *.pyc
 */*.egg-info/*
+*.retry

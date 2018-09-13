@@ -1,7 +1,7 @@
 # According to https://docs.docker.com/engine/examples/running_ssh_service/
 FROM ubuntu:18.04
 # System setup
-RUN apt-get update && apt-get install -y openssh-server python3-pip
+RUN apt-get update && apt-get install -y openssh-server python3-pip python-apt
 # SSH setup
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' |chpasswd

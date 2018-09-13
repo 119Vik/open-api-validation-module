@@ -10,7 +10,8 @@ setup(name="python_openapi_validator",
       packages=['python_openapi_validator'],
       zip_safe=False,
       install_requires=[
-          'bravado_core',
+          'bravado_core==5.0.6',
+          'jsonschema==2.6.0',
       ],
       entry_points={
         'console_scripts': [

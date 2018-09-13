@@ -11,13 +11,14 @@ class OpenAPIValidator(object):
 
     def __init__(self, spec_data_provider):
         self._spec = None
+        self._spec_dict = None
 
         self._spec_data_provider = spec_data_provider
 
+        self._init_spec_dict()
         self._init_spec()
 
-    @property
-    def _spec_dict(self):
+    def _init_spec_dict(self):
         """
         Get Full definition of models specifications from any suitable source.
 
@@ -29,7 +30,8 @@ class OpenAPIValidator(object):
             spec_dict = {
                 "definitions": spec_dict
             }
-        return spec_dict
+
+        self._spec_dict = spec_dict
 
     def _init_spec(self):
         """Initialise API specification object."""
@@ -47,7 +49,7 @@ class OpenAPIValidator(object):
     def perform_validation_against_model(self, model_name,
                                          sample_data_provider):
         try:
-            model_spec = self._spec['definitions'][model_name]
+            model_spec = self._spec_dict['definitions'][model_name]
         except KeyError:
             raise exceptions.WrongArguments("Requested model is not in spec")
 
