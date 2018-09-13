@@ -1,0 +1,51 @@
+{
+  "f_integer": 1,
+  "nested_model" :{
+    "f_string": "string",
+    "f_number": 1,
+    "f_boolean": true,
+    "f_integer": 1,
+    "objects": [
+      {
+        "id": "string",
+        "type": "string",
+        "version": "string",
+        "name": "string"
+      }
+    ],
+    "fragments":[
+      {
+        "objects": [
+          {
+            "id": "string",
+            "type": "string",
+            "version": "string",
+            "name": "string"
+          }
+        ],
+        "object": {
+          "ms": [
+            {
+              "id": "string",
+              "type": "string",
+              "version": "string",
+              "name": "string"
+            }
+          ],
+          "ts": [
+            {
+              "id": "string",
+              "type": "string",
+              "version": "string",
+              "name": "string"
+            }
+          ]
+        },
+        "subType": "HOST",
+        "type": "string",
+        "value": 1,
+        "name": "string"
+      }
+    ]
+  }
+}

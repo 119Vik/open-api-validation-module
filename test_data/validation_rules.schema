@@ -1,0 +1,141 @@
+{
+  "Model2": {
+    "type": "object",
+    "required": [
+      "ms",
+      "ts"
+    ],
+    "properties": {
+      "ms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/ReferenceModel"
+        }
+      },
+      "ts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/ReferenceModel"
+        }
+      }
+    }
+  },
+  "Model3": {
+    "type": "string",
+    "enum": [
+      "HOST",
+      "NETWORK",
+      "IPRANGE",
+      "FQDN"
+    ]
+  },
+  "Fragment": {
+    "type": "object",
+    "required": [
+      "type",
+      "objects",
+      "subType",
+      "object"
+    ],
+    "properties": {
+      "objects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/ReferenceModel"
+        }
+      },
+      "object": {
+        "type": "object",
+        "$ref": "#/definitions/Model2"
+      },
+      "subType": {
+        "type": "object",
+        "$ref": "#/definitions/Model3"
+      },
+      "type": {
+        "type": "string"
+      },
+      "value": {
+        "type": "number"
+      },
+      "name": {
+        "type": "string"
+      }
+    }
+  },
+  "ReferenceModel": {
+    "type": "object",
+    "required": [
+      "id",
+      "type"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      }
+    }
+  },
+  "Model1": {
+    "type": "object",
+    "properties": {
+      "f_string": {
+        "type": "string"
+      },
+      "f_number": {
+        "type": "number"
+      },
+      "f_boolean": {
+        "type": "boolean"
+      },
+      "f_integer": {
+        "type": "integer"
+      },
+      "objects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/ReferenceModel"
+        }
+      },
+      "fragments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/Fragment"
+        }
+      }
+    },
+    "required": [
+      "f_string",
+      "objects",
+      "fragments"
+    ]
+  },
+  "TestModel": {
+    "type": "object",
+    "properties": {
+      "nested_model": {
+        "type": "object",
+        "$ref": "#/definitions/Model1"
+      },
+      "f_integer": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "nested_model"
+    ]
+  }
+}
