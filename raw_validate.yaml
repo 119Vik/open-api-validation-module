@@ -1,5 +1,5 @@
 # Run as:
-# $ ansible-playbook -i ansible_inventory setup_keys.yaml \
+# $ ansible-playbook -i ansible_inventory validate.yaml \
 #     --ask-pass --ask-become-pass \
 #     --extra-vars='
 #target=< target machine name >
@@ -16,7 +16,7 @@
     data_sample_file_name: "/python_openapi_validator/datamodel.sample"
 
   tasks:
-  - name: Copy spec File to remote machine
+   - name: Copy spec File to remote machine
     copy:
       src: "{{ spec_file_path }}"
       dest: "{{ schema_file_name }}"
